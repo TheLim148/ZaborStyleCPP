@@ -1,32 +1,21 @@
 #include <iostream>
 #include <limits>
 #include <string>
-#include <random>
-#include <cctype>
+#include <ctime>
 
 using namespace std;
 
-bool isUpperCase(const string& str) {
-    for (char c : str) {
-        if (!isupper(static_cast<unsigned char>(c))) {
-        return false;
-        }
-    }
-    return true;
-}
-
 void RandomStyle() {
+    srand(time(0));
+    
     string str;
     bool upper = true;
     cout << "Enter your string: ";
     getline(cin, str);
 
-    default_random_engine generator;
-    uniform_int_distribution<int> distribution(0, str.length());
-
     for (char &ch : str) {
         if (isalpha(ch)) {
-            int num = distribution(generator);
+            int num = rand() % str.length() + 1;
             if (num > str.length() / 2) {
                 ch = upper ? toupper(ch) : tolower(ch);
             }
