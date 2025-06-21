@@ -1,28 +1,10 @@
 #include <iostream>
+#include <stdlib.h>
 #include <limits>
 #include <string>
 #include <ctime>
 
 using namespace std;
-
-void RandomStyle() {
-    srand(time(0));
-    
-    string str;
-    bool upper = true;
-    cout << "Enter your string: ";
-    getline(cin, str);
-
-    for (char &ch : str) {
-        if (isalpha(ch)) {
-            int num = rand() % str.length() + 1;
-            if (num > str.length() / 2) {
-                ch = upper ? toupper(ch) : tolower(ch);
-            }
-        }
-    }
-    cout << "Returned string: " << str << endl;
-}
 
 void ZaborStyle() {
     string str;
@@ -52,12 +34,36 @@ void ZaborStyle() {
             }
             break;
     }
-    cout << "Returned string: " << str << endl;
+
+    string cmd = "powershell -command \"Set-Clipboard -Value '" + str + "'\"";
+    system(cmd.c_str());
+    cout << "Copied string: " << str << endl;
+}
+
+void RandomStyle() {
+    srand(time(0));
+    
+    string str;
+    bool upper = true;
+    cout << "Enter your string: ";
+    getline(cin, str);
+
+    for (char &ch : str) {
+        if (isalpha(ch)) {
+            int num = rand() % str.length() + 1;
+            if (num > str.length() / 2) {
+                ch = upper ? toupper(ch) : tolower(ch);
+            }
+        }
+    }
+    string cmd = "powershell -command \"Set-Clipboard -Value '" + str + "'\"";
+    system(cmd.c_str());
+    cout << "Copied string: " << str << endl;
 }
 
 int main() {
     int n;
-    cout << "\n1 - ZabotStyle\n2 - RandomStyle\n3 - Exit\n~$ ";
+    cout << "\n1 - ZaborStyle\n2 - RandomStyle\n3 - Exit\n~$ ";
     cin >> n;
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
